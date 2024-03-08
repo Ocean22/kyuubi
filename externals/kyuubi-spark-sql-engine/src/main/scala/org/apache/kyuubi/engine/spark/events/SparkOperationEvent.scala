@@ -46,6 +46,10 @@ import org.apache.kyuubi.events.KyuubiEvent
  * @param sessionId the identifier of the parent session
  * @param sessionUser the authenticated client user
  * @param executionId the query execution id of this operation
+ * @param operationRunTime total time of running the operation (including fetching shuffle data)
+ *                         in milliseconds
+ * @param operationCpuTime total CPU time of running the operation (including fetching shuffle data)
+ *                         in nanoseconds
  */
 case class SparkOperationEvent(
     @KVIndexParam statementId: String,
@@ -59,7 +63,9 @@ case class SparkOperationEvent(
     exception: Option[Throwable],
     sessionId: String,
     sessionUser: String,
-    executionId: Option[Long]) extends KyuubiEvent with SparkListenerEvent {
+    executionId: Option[Long],
+    operationRunTime: Option[Long],
+    operationCpuTime: Option[Long]) extends KyuubiEvent with SparkListenerEvent {
 
   override def partitions: Seq[(String, String)] =
     ("day", Utils.getDateFromTimestamp(createTime)) :: Nil
@@ -79,7 +85,9 @@ case class SparkOperationEvent(
 object SparkOperationEvent {
   def apply(
       operation: SparkOperation,
-      executionId: Option[Long] = None): SparkOperationEvent = {
+      executionId: Option[Long] = None,
+      operationRunTime: Option[Long] = None,
+      operationCpuTime: Option[Long] = None): SparkOperationEvent = {
     val session = operation.getSession
     val status = operation.getStatus
     new SparkOperationEvent(
@@ -94,6 +102,8 @@ object SparkOperationEvent {
       status.exception,
       session.handle.identifier.toString,
       session.user,
-      executionId)
+      executionId,
+      operationRunTime,
+      operationCpuTime)
   }
 }

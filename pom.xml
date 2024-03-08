@@ -126,25 +126,24 @@
         <apache.archive.dist>https://archive.apache.org/dist</apache.archive.dist>
         <atlas.version>2.3.0</atlas.version>
         <bouncycastle.version>1.67</bouncycastle.version>
-        <codahale.metrics.version>4.2.8</codahale.metrics.version>
+        <codahale.metrics.version>4.2.23</codahale.metrics.version>
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-codec.version>1.15</commons-codec.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
-        <etcd.version>0.7.3</etcd.version>
         <delta.artifact>delta-core</delta.artifact>
         <delta.version>2.4.0</delta.version>
-        <failsafe.verion>2.4.4</failsafe.verion>
+        <failsafe.verion>3.3.2</failsafe.verion>
         <fb303.version>0.9.3</fb303.version>
         <flexmark.version>0.62.2</flexmark.version>
-        <flink.version>1.17.1</flink.version>
+        <flink.version>1.17.2</flink.version>
         <flink.archive.name>flink-${flink.version}-bin-scala_2.12.tgz</flink.archive.name>
         <flink.archive.mirror>${apache.archive.dist}/flink/flink-${flink.version}</flink.archive.mirror>
         <flink.archive.download.skip>false</flink.archive.download.skip>
         <google.jsr305.version>3.0.2</google.jsr305.version>
-        <grpc.version>1.53.0</grpc.version>
+        <grpc.version>1.60.2</grpc.version>
         <guava.version>32.0.1-jre</guava.version>
         <guava.failureaccess.version>1.0.1</guava.failureaccess.version>
         <hadoop.version>3.3.6</hadoop.version>
@@ -162,30 +161,32 @@
         <httpcore.version>4.4.16</httpcore.version>
         <hudi.version>0.14.0</hudi.version>
         <hudi.spark.binary.version>${spark.binary.version}</hudi.spark.binary.version>
-        <iceberg.version>1.4.0</iceberg.version>
-        <jackson.version>2.15.0</jackson.version>
+        <iceberg.version>1.4.3</iceberg.version>
+        <jackson.version>2.15.4</jackson.version>
         <jakarta.servlet-api.version>4.0.4</jakarta.servlet-api.version>
         <jakarta.xml-bind.version>2.3.2</jakarta.xml-bind.version>
         <jakarta.activation.version>1.2.2</jakarta.activation.version>
         <jersey.version>2.39.1</jersey.version>
+        <jetcd.version>0.7.7</jetcd.version>
         <jetty.version>9.4.52.v20230823</jetty.version>
         <jline.version>0.9.94</jline.version>
         <junit.version>4.13.2</junit.version>
         <kafka.version>3.5.1</kafka.version>
         <kubernetes-client.version>6.8.1</kubernetes-client.version>
-        <kyuubi-shaded-zookeeper.artifacts>kyuubi-shaded-zookeeper-34</kyuubi-shaded-zookeeper.artifacts>
-        <kyuubi-shaded-zookeeper.version>0.1.0</kyuubi-shaded-zookeeper.version>
+        <kyuubi-relocated.version>0.2.0</kyuubi-relocated.version>
+        <kyuubi-relocated-zookeeper.artifacts>kyuubi-relocated-zookeeper-34</kyuubi-relocated-zookeeper.artifacts>
         <ldapsdk.version>6.0.5</ldapsdk.version>
         <log4j.version>2.20.0</log4j.version>
         <mysql.jdbc.version>8.0.32</mysql.jdbc.version>
         <mockito.version>4.11.0</mockito.version>
         <netty.version>4.1.100.Final</netty.version>
         <openai.java.version>0.12.0</openai.java.version>
-        <paimon.version>0.5.0-incubating</paimon.version>
+        <retrofit.version>2.9.0</retrofit.version>
+        <paimon.version>0.7.0-incubating</paimon.version>
         <paimon.spark.binary.version>${spark.binary.version}</paimon.spark.binary.version>
         <parquet.version>1.10.1</parquet.version>
         <phoenix.version>6.0.0</phoenix.version>
-        <postgresql.version>42.6.0</postgresql.version>
+        <postgresql.version>42.7.2</postgresql.version>
         <prometheus.version>0.16.0</prometheus.version>
         <protobuf.version>3.21.7</protobuf.version>
         <py4j.version>0.10.7</py4j.version>
@@ -199,7 +200,7 @@
           DO NOT forget to change the following properties when change the minor version of Spark:
           `delta.version`, `maven.plugin.scalatest.exclude.tags`
           -->
-        <spark.version>3.4.1</spark.version>
+        <spark.version>3.4.2</spark.version>
         <spark.binary.version>3.4</spark.binary.version>
         <spark.archive.scala.suffix></spark.archive.scala.suffix>
         <spark.archive.name>spark-${spark.version}-bin-hadoop3${spark.archive.scala.suffix}.tgz</spark.archive.name>
@@ -211,7 +212,8 @@
         <!-- https://github.com/ThreeTen/threeten-extra/issues/226 -->
         <threeten.version>1.7.0</threeten.version>
         <thrift.version>0.9.3</thrift.version>
-        <trino.client.version>363</trino.client.version>
+        <!-- trino-client involves kotlin runtime dependencies since 412 because of upgrading okhttp -->
+        <trino.client.version>411</trino.client.version>
         <trino.tpcds.version>1.4</trino.tpcds.version>
         <trino.tpch.version>1.1</trino.tpch.version>
 
@@ -244,7 +246,7 @@
         <maven.plugin.surefire.argLine></maven.plugin.surefire.argLine>
         <maven.plugin.jacoco.version>0.8.11</maven.plugin.jacoco.version>
         <maven.plugin.scalastyle.version>1.0.0</maven.plugin.scalastyle.version>
-        <maven.plugin.shade.version>3.4.1</maven.plugin.shade.version>
+        <maven.plugin.shade.version>3.5.2</maven.plugin.shade.version>
         <maven.plugin.silencer.version>1.7.13</maven.plugin.silencer.version>
         <!-- MSOURCES-121 breaks creating source artifacts for shaded modules,
              we should skip upgrading until MSOURCES-141 gets fixed. -->
@@ -279,8 +281,13 @@
         <dependencies>
             <dependency>
                 <groupId>org.apache.kyuubi</groupId>
-                <artifactId>${kyuubi-shaded-zookeeper.artifacts}</artifactId>
-                <version>${kyuubi-shaded-zookeeper.version}</version>
+                <artifactId>kyuubi-relocated-hive-service-rpc</artifactId>
+                <version>${kyuubi-relocated.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kyuubi</groupId>
+                <artifactId>${kyuubi-relocated-zookeeper.artifacts}</artifactId>
+                <version>${kyuubi-relocated.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.antlr</groupId>
@@ -431,11 +438,6 @@
                 <artifactId>spark-core_${scala.binary.version}</artifactId>
                 <version>${spark.version}</version>
                 <exclusions>
-                    <!-- Use Hadoop Shaded Client to gain more clean transitive dependencies -->
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-client</artifactId>
-                    </exclusion>
                     <!--  Use log4j2 -->
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -469,13 +471,6 @@
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-hive_${scala.binary.version}</artifactId>
                 <version>${spark.version}</version>
-                <exclusions>
-                    <!-- Use Hadoop Shaded Client to gain more clean transitive dependencies -->
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-common</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
@@ -484,11 +479,6 @@
                 <version>${spark.version}</version>
                 <type>test-jar</type>
                 <exclusions>
-                    <!-- Use Hadoop Shaded Client to gain more clean transitive dependencies -->
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-client</artifactId>
-                    </exclusion>
                     <!--  Use log4j2 -->
                     <exclusion>
                         <groupId>log4j</groupId>
@@ -559,6 +549,18 @@
             <dependency>
                 <groupId>com.dimafeng</groupId>
                 <artifactId>testcontainers-scala-scalatest_${scala.binary.version}</artifactId>
+                <version>${testcontainers-scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dimafeng</groupId>
+                <artifactId>testcontainers-scala-mysql_${scala.binary.version}</artifactId>
+                <version>${testcontainers-scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dimafeng</groupId>
+                <artifactId>testcontainers-scala-postgresql_${scala.binary.version}</artifactId>
                 <version>${testcontainers-scala.version}</version>
             </dependency>
 
@@ -1087,7 +1089,7 @@
             <dependency>
                 <groupId>io.etcd</groupId>
                 <artifactId>jetcd-core</artifactId>
-                <version>${etcd.version}</version>
+                <version>${jetcd.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>javax.annotation</groupId>
@@ -1099,7 +1101,7 @@
             <dependency>
                 <groupId>io.etcd</groupId>
                 <artifactId>jetcd-launcher</artifactId>
-                <version>${etcd.version}</version>
+                <version>${jetcd.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.testcontainers</groupId>
@@ -1139,6 +1141,12 @@
             </dependency>
 
             <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-util</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
@@ -1151,7 +1159,7 @@
             </dependency>
 
             <dependency>
-                <groupId>net.jodah</groupId>
+                <groupId>dev.failsafe</groupId>
                 <artifactId>failsafe</artifactId>
                 <version>${failsafe.verion}</version>
             </dependency>
@@ -1196,10 +1204,8 @@
             </dependency>
 
             <!--
-              Required for JDK 11. Previous as a transitive dependency of hadoop-client,
-              since SPARK-33212(will be included in Apache Spark 3.2), Apache Spark moved
-              to Hadoop Shaded Client, and Kyuubi always uses Hadoop Shaded Client, thus
-              we need explicitly add this dependency.
+              Required by Hadoop on JDK 11 or later. Could be omitted on modules already
+              pull Spark dependencies as it is already a transitive dependency of spark-core.
               -->
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
@@ -1208,8 +1214,8 @@
             </dependency>
 
             <!--
-              Required for Yarn Mini Cluster on JDK 11, it is already a transitive dependency
-              of spark-core, thus only should explicitly add on Kyuubi Server Main test scope.
+              Required by YARN Mini Cluster on JDK 11 or later. Could be omitted on modules already
+              pull Spark dependencies as it is already a transitive dependency of spark-core.
               -->
             <dependency>
                 <groupId>jakarta.activation</groupId>
@@ -1217,7 +1223,7 @@
                 <version>${jakarta.activation.version}</version>
             </dependency>
 
-            <!-- Zookeeper Cli required -->
+            <!-- Required by Zookeeper Cli and Beeline -->
             <dependency>
                 <groupId>jline</groupId>
                 <artifactId>jline</artifactId>
@@ -1266,12 +1272,6 @@
                 <groupId>org.glassfish.jersey.core</groupId>
                 <artifactId>jersey-server</artifactId>
                 <version>${jersey.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
@@ -1683,14 +1683,30 @@
                     </executions>
                 </plugin>
 
-                <!-- disable surefire -->
+                <!-- disable surefire globally, only enable it on pure Java modules -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <!-- Note config is repeated in scalatest config -->
                     <configuration>
                         <skipTests>true</skipTests>
                         <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
                         <argLine>${maven.plugin.surefire.argLine}</argLine>
+                        <environmentVariables>
+                            <KYUUBI_WORK_DIR_ROOT>${project.build.directory}/work</KYUUBI_WORK_DIR_ROOT>
+                        </environmentVariables>
+                        <systemProperties>
+                            <log4j.ignoreTCL>true</log4j.ignoreTCL>
+                            <log4j.configuration>file:src/test/resources/log4j.properties</log4j.configuration>
+                            <log4j2.configurationFile>src/test/resources/log4j2-test.xml</log4j2.configurationFile>
+                            <java.io.tmpdir>${project.build.directory}/tmp</java.io.tmpdir>
+                            <spark.driver.memory>1g</spark.driver.memory>
+                            <kyuubi.metrics.json.location>${project.build.directory}/metrics</kyuubi.metrics.json.location>
+                            <kyuubi.frontend.bind.host>localhost</kyuubi.frontend.bind.host>
+                            <sun.security.krb5.debug>false</sun.security.krb5.debug>
+                            <kyuubi.operation.log.dir.root>${project.build.directory}/server_operation_logs</kyuubi.operation.log.dir.root>
+                            <kyuubi.engine.operation.log.dir.root>${project.build.directory}/engine_operation_logs</kyuubi.engine.operation.log.dir.root>
+                        </systemProperties>
                     </configuration>
                 </plugin>
                 <!-- enable scalatest -->
@@ -1698,6 +1714,7 @@
                     <groupId>org.scalatest</groupId>
                     <artifactId>scalatest-maven-plugin</artifactId>
                     <version>${maven.plugin.scalatest.version}</version>
+                    <!-- Note config is repeated in surefire config -->
                     <configuration>
                         <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                         <junitxml>.</junitxml>
@@ -1715,8 +1732,8 @@
                             <kyuubi.metrics.json.location>${project.build.directory}/metrics</kyuubi.metrics.json.location>
                             <kyuubi.frontend.bind.host>localhost</kyuubi.frontend.bind.host>
                             <sun.security.krb5.debug>false</sun.security.krb5.debug>
-                            <kyuubi.operation.log.dir.root>target/server_operation_logs</kyuubi.operation.log.dir.root>
-                            <kyuubi.engine.operation.log.dir.root>target/engine_operation_logs</kyuubi.engine.operation.log.dir.root>
+                            <kyuubi.operation.log.dir.root>${project.build.directory}/server_operation_logs</kyuubi.operation.log.dir.root>
+                            <kyuubi.engine.operation.log.dir.root>${project.build.directory}/engine_operation_logs</kyuubi.engine.operation.log.dir.root>
                         </systemProperties>
                         <tagsToExclude>${maven.plugin.scalatest.exclude.tags}</tagsToExclude>
                         <tagsToInclude>${maven.plugin.scalatest.include.tags}</tagsToInclude>
@@ -2048,11 +2065,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
             </plugin>
@@ -2212,24 +2224,6 @@
         </profile>
 
         <profile>
-            <id>spark-3.1</id>
-            <modules>
-                <module>extensions/spark/kyuubi-extension-spark-common</module>
-                <module>extensions/spark/kyuubi-extension-spark-3-1</module>
-            </modules>
-            <properties>
-                <spark.version>3.1.3</spark.version>
-                <spark.binary.version>3.1</spark.binary.version>
-                <delta.artifact>delta-core</delta.artifact>
-                <delta.version>1.0.1</delta.version>
-                <!-- Iceberg removed the support for Spark 3.1 in apache/iceberg#8661 since 1.4.0 -->
-                <iceberg.version>1.3.1</iceberg.version>
-                <spark.archive.name>spark-${spark.version}-bin-hadoop3.2.tgz</spark.archive.name>
-                <maven.plugin.scalatest.exclude.tags>org.scalatest.tags.Slow</maven.plugin.scalatest.exclude.tags>
-            </properties>
-        </profile>
-
-        <profile>
             <id>spark-3.2</id>
             <modules>
                 <module>extensions/spark/kyuubi-extension-spark-common</module>
@@ -2255,7 +2249,7 @@
             <properties>
                 <delta.version>2.3.0</delta.version>
                 <delta.artifact>delta-core</delta.artifact>
-                <spark.version>3.3.3</spark.version>
+                <spark.version>3.3.4</spark.version>
                 <spark.binary.version>3.3</spark.binary.version>
                 <maven.plugin.scalatest.exclude.tags>org.scalatest.tags.Slow</maven.plugin.scalatest.exclude.tags>
             </properties>
@@ -2270,7 +2264,7 @@
             <properties>
                 <delta.artifact>delta-core</delta.artifact>
                 <delta.version>2.4.0</delta.version>
-                <spark.version>3.4.1</spark.version>
+                <spark.version>3.4.2</spark.version>
                 <spark.binary.version>3.4</spark.binary.version>
                 <maven.plugin.scalatest.exclude.tags>org.scalatest.tags.Slow</maven.plugin.scalatest.exclude.tags>
             </properties>
@@ -2280,17 +2274,16 @@
             <id>spark-3.5</id>
             <modules>
                 <module>extensions/spark/kyuubi-extension-spark-3-5</module>
+                <module>extensions/spark/kyuubi-spark-connector-hive</module>
             </modules>
             <properties>
                 <delta.artifact>delta-spark</delta.artifact>
-                <delta.version>3.0.0</delta.version>
+                <delta.version>3.1.0</delta.version>
                 <!-- Remove this when Hudi supports Spark 3.5 -->
                 <hudi.spark.binary.version>3.4</hudi.spark.binary.version>
-                <!-- Remove this when Paimon supports Spark 3.5 -->
-                <paimon.spark.binary.version>3.4</paimon.spark.binary.version>
-                <spark.version>3.5.0</spark.version>
+                <spark.version>3.5.1</spark.version>
                 <spark.binary.version>3.5</spark.binary.version>
-                <maven.plugin.scalatest.exclude.tags>org.scalatest.tags.Slow,org.apache.kyuubi.tags.DeltaTest,org.apache.kyuubi.tags.PySparkTest,org.apache.kyuubi.tags.PaimonTest</maven.plugin.scalatest.exclude.tags>
+                <maven.plugin.scalatest.exclude.tags>org.scalatest.tags.Slow</maven.plugin.scalatest.exclude.tags>
             </properties>
         </profile>
 
@@ -2317,28 +2310,28 @@
         <profile>
             <id>flink-1.16</id>
             <properties>
-                <flink.version>1.16.2</flink.version>
+                <flink.version>1.16.3</flink.version>
             </properties>
         </profile>
 
         <profile>
             <id>flink-1.17</id>
             <properties>
-                <flink.version>1.17.1</flink.version>
+                <flink.version>1.17.2</flink.version>
             </properties>
         </profile>
 
         <profile>
             <id>flink-1.18</id>
             <properties>
-                <flink.version>1.18.0</flink.version>
+                <flink.version>1.18.1</flink.version>
             </properties>
         </profile>
 
         <profile>
             <id>zookeeper-3.6</id>
             <properties>
-                <kyuubi-shaded-zookeeper.artifacts>kyuubi-shaded-zookeeper-36</kyuubi-shaded-zookeeper.artifacts>
+                <kyuubi-relocated-zookeeper.artifacts>kyuubi-relocated-zookeeper-36</kyuubi-relocated-zookeeper.artifacts>
             </properties>
         </profile>
 
@@ -2361,13 +2354,6 @@
             <properties>
                 <hive.archive.download.skip>true</hive.archive.download.skip>
             </properties>
-        </profile>
-
-        <profile>
-            <id>spark-block-cleaner</id>
-            <modules>
-                <module>tools/spark-block-cleaner</module>
-            </modules>
         </profile>
 
         <profile>
@@ -2413,6 +2399,18 @@
             <properties>
                 <webui.skip>false</webui.skip>
             </properties>
+        </profile>
+
+        <profile>
+            <id>codecov</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>

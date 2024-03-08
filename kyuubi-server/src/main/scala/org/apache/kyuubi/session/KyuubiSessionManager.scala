@@ -23,7 +23,6 @@ import scala.collection.JavaConverters._
 
 import com.codahale.metrics.MetricRegistry
 import com.google.common.annotations.VisibleForTesting
-import org.apache.hive.service.rpc.thrift.TProtocolVersion
 
 import org.apache.kyuubi.KyuubiSQLException
 import org.apache.kyuubi.client.api.v1.dto.{Batch, BatchRequest}
@@ -39,8 +38,10 @@ import org.apache.kyuubi.operation.{KyuubiOperationManager, OperationState}
 import org.apache.kyuubi.plugin.{GroupProvider, PluginLoader, SessionConfAdvisor}
 import org.apache.kyuubi.server.metadata.{MetadataManager, MetadataRequestsRetryRef}
 import org.apache.kyuubi.server.metadata.api.{Metadata, MetadataFilter}
+import org.apache.kyuubi.shaded.hive.service.rpc.thrift.TProtocolVersion
 import org.apache.kyuubi.sql.parser.server.KyuubiParser
 import org.apache.kyuubi.util.{SignUtils, ThreadUtils}
+import org.apache.kyuubi.util.ThreadUtils.scheduleTolerableRunnableWithFixedDelay
 
 class KyuubiSessionManager private (name: String) extends SessionManager(name) {
 
@@ -86,6 +87,7 @@ class KyuubiSessionManager private (name: String) extends SessionManager(name) {
       password: String,
       ipAddress: String,
       conf: Map[String, String]): Session = {
+    val userConf = this.getConf.getUserDefaults(user)
     new KyuubiSessionImpl(
       protocol,
       user,
@@ -93,7 +95,8 @@ class KyuubiSessionManager private (name: String) extends SessionManager(name) {
       ipAddress,
       conf,
       this,
-      this.getConf.getUserDefaults(user),
+      userConf,
+      userConf.get(ENGINE_DO_AS_ENABLED),
       parser)
   }
 
@@ -396,20 +399,22 @@ class KyuubiSessionManager private (name: String) extends SessionManager(name) {
   private def startEngineAliveChecker(): Unit = {
     val interval = conf.get(KyuubiConf.ENGINE_ALIVE_PROBE_INTERVAL)
     val checkTask: Runnable = () => {
-      allSessions().foreach { session =>
-        if (!session.asInstanceOf[KyuubiSessionImpl].checkEngineConnectionAlive()) {
+      allSessions().foreach {
+        case session: KyuubiSessionImpl =>
           try {
-            closeSession(session.handle)
-            logger.info(s"The session ${session.handle} has been closed " +
-              s"due to engine unresponsiveness (checked by the engine alive checker).")
+            if (!session.checkEngineConnectionAlive()) {
+              closeSession(session.handle)
+              logger.info(s"The session ${session.handle} has been closed " +
+                s"due to engine unresponsiveness (checked by the engine alive checker).")
+            }
           } catch {
-            case e: KyuubiSQLException =>
-              warn(s"Error closing session ${session.handle}", e)
+            case e: Throwable => warn(s"Error closing session ${session.handle}", e)
           }
-        }
+        case _ =>
       }
     }
-    engineConnectionAliveChecker.scheduleWithFixedDelay(
+    scheduleTolerableRunnableWithFixedDelay(
+      engineConnectionAliveChecker,
       checkTask,
       interval,
       interval,

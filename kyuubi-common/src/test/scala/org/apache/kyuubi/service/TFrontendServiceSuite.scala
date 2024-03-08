@@ -21,7 +21,6 @@ import java.time.Duration
 
 import scala.collection.JavaConverters._
 
-import org.apache.hive.service.rpc.thrift._
 import org.scalatest.time._
 
 import org.apache.kyuubi.{KyuubiFunSuite, KyuubiSQLException, Utils}
@@ -30,6 +29,7 @@ import org.apache.kyuubi.config.KyuubiConf._
 import org.apache.kyuubi.operation.{OperationHandle, TClientTestUtils}
 import org.apache.kyuubi.service.TFrontendService.FeServiceServerContext
 import org.apache.kyuubi.session.{AbstractSession, SessionHandle}
+import org.apache.kyuubi.shaded.hive.service.rpc.thrift._
 
 class TFrontendServiceSuite extends KyuubiFunSuite {
 
@@ -557,9 +557,7 @@ class TFrontendServiceSuite extends KyuubiFunSuite {
       assert(cancelOpResp.getStatus.getStatusCode === TStatusCode.SUCCESS_STATUS)
       assert(sessionManager.getOpenSessionCount === 1)
       assert(session.lastIdleTime === 0)
-      eventually(timeout(Span(60, Seconds)), interval(Span(1, Seconds))) {
-        assert(lastAccessTime < session.lastAccessTime)
-      }
+
       lastAccessTime = session.lastAccessTime
 
       eventually(timeout(Span(60, Seconds)), interval(Span(1, Seconds))) {

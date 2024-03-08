@@ -55,16 +55,16 @@ class JDBCMetadataStore(conf: KyuubiConf) extends MetadataStore with Logging {
     }
   private val driverClass = dbType match {
     case SQLITE => driverClassOpt.getOrElse("org.sqlite.JDBC")
-    case DERBY => driverClassOpt.getOrElse("org.apache.derby.jdbc.AutoloadedDriver")
     case MYSQL => driverClassOpt.getOrElse(mysqlDriverClass)
+    case POSTGRESQL => driverClassOpt.getOrElse("org.postgresql.Driver")
     case CUSTOM => driverClassOpt.getOrElse(
         throw new IllegalArgumentException("No jdbc driver defined"))
   }
 
   private val dialect = dbType match {
-    case DERBY => new DerbyDatabaseDialect
     case SQLITE => new SQLiteDatabaseDialect
     case MYSQL => new MySQLDatabaseDialect
+    case POSTGRESQL => new PostgreSQLDatabaseDialect
     case CUSTOM => new GenericDatabaseDialect
   }
 
@@ -74,7 +74,7 @@ class JDBCMetadataStore(conf: KyuubiConf) extends MetadataStore with Logging {
     JDBCMetadataStoreConf.getMetadataStoreJDBCDataSourceProperties(conf)
   private val hikariConfig = new HikariConfig(datasourceProperties)
   hikariConfig.setDriverClassName(driverClass)
-  hikariConfig.setJdbcUrl(conf.get(METADATA_STORE_JDBC_URL))
+  hikariConfig.setJdbcUrl(getMetadataStoreJdbcUrl(conf))
   hikariConfig.setUsername(conf.get(METADATA_STORE_JDBC_USER))
   hikariConfig.setPassword(conf.get(METADATA_STORE_JDBC_PASSWORD))
   hikariConfig.setPoolName("jdbc-metadata-store-pool")
